@@ -23,6 +23,7 @@ async def get_user_logs(user_id: int = Path(...)):
         return HTTPException(status_code=404, detail=f"No user logs found for user ID {user_id}")
     return logs
 
-# @app.get("/logs")
-# async def get_all_logs() -> List[ExerciseLog]:
-#     return log_db.get_all_logs()
+@exercise_route.get("/logs")
+async def get_all_logs():
+    db = Session(engine)
+    return ExerciseLogService(db).get_all_logs()

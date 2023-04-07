@@ -19,5 +19,5 @@ class ExerciseLogService():
         self.db.refresh(log)
         return log
 
-    # def get_all_logs(self) -> List[ExerciseLog]:
-    #     return list(self.logs.values())
+    def get_all_logs(self):
+        return self.db.query(ExerciseLog).all()
