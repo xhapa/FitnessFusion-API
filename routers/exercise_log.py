@@ -4,13 +4,16 @@ from fastapi.responses import JSONResponse
 
 from services.exercises_log import ExerciseLogService
 
+from sqlmodels.exercises_log import ExerciseLog
+
 from config.database import Session, engine
 
 exercise_route = APIRouter()
 
-# @app.post("/log-exercise")
-# async def log_exercise(log_data: Dict) -> ExerciseLog:
-#     return log_db.create_log(log_data)
+@exercise_route.post("/log-exercise")
+async def log_exercise(log_data : ExerciseLog = Body()):
+    db = Session(engine)
+    return ExerciseLogService(db).create_log(log_data)
 
 @exercise_route.get("/users/{user_id}/logs")
 async def get_user_logs(user_id: int = Path(...)):

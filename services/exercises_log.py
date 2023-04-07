@@ -12,12 +12,12 @@ class ExerciseLogService():
     def get_user_logs(self, user_id: int):
         return self.db.query(ExerciseLog).filter(user_id == user_id).all()
 
-    # def create_log(self, log_data: Dict) -> ExerciseLog:
-    #     log = ExerciseLog(**log_data)
-    #     log.timestamp = datetime.now()
-    #     log_key = f"{log.user_id}-{log.timestamp}"
-    #     self.logs[log_key] = log
-    #     return log
+    def create_log(self, log_data):
+        log = ExerciseLog(**log_data.dict())
+        self.db.add(log)
+        self.db.commit()
+        self.db.refresh(log)
+        return log
 
     # def get_all_logs(self) -> List[ExerciseLog]:
     #     return list(self.logs.values())
