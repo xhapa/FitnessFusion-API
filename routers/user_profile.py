@@ -33,6 +33,7 @@ async def delete_user_profile(user_id: int = Query(...)):
     UserProfileService(db).delete_user_profile(user_id)
     return JSONResponse(status_code=200, content={'message': 'user profile deleted'})
 
-# @app.get("/users")
-# async def get_all_user_profiles() -> List[UserProfile]:
-#     return user_db.get_all_user_profiles()
+@user_route.get("/users")
+async def get_all_user_profiles():
+    db = Session(engine)
+    return UserProfileService(db).get_all_user_profiles()

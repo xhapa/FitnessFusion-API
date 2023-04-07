@@ -33,6 +33,7 @@ class UserProfileService():
     def delete_user_profile(self, user_id: int) -> None:
         profile = self.db.query(UserProfile).filter(user_id == user_id).first()
         self.db.delete(profile)
+        self.db.commit()
 
     def get_all_user_profiles(self):
         return self.db.query(UserProfile).all()
