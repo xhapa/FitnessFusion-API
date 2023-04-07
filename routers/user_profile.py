@@ -21,9 +21,10 @@ async def get_user_profile(user_id: int = Query(...)):
         return HTTPException(status_code=404, detail=f"No user profile found for user ID {user_id}")
     return profile
 
-# @app.put("/users/{user_id}")
-# async def update_user_profile(user_id: int, profile_data: Dict) -> UserProfile:
-#     return user_db.update_user_profile(user_id, profile_data)
+@user_route.put("/users/{user_id}")
+async def update_user_profile(user_id: int = Query(...), profile_data: UserProfile = Body()):
+    db = Session(engine)
+    return UserProfileService(db).update_user_profile(user_id, profile_data)
 
 # @app.delete("/users/{user_id}")
 # async def delete_user_profile(user_id: int) -> None:
