@@ -1,4 +1,6 @@
 from sqlmodel import Session, SQLModel, create_engine
+from sqlmodels.exercises_log import ExerciseLog
+from sqlmodels.user_profile import UserProfile
 
 sqlite_file_name = "db.sqlite"
 sqlite_url = f"sqlite:///{sqlite_file_name}"

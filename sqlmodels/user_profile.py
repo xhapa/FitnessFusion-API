@@ -1,9 +1,10 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Relationship
 
 from datetime import date
+from typing import Optional, List
 
 class UserProfile(SQLModel, table=True):
-    user_id: int = Field(default=None, primary_key=True)
+    user_id: Optional[int] = Field(default=None, primary_key=True)
     first_name: str = Field(index=True)
     last_name: str = Field(index=True)
     email: str = Field(index=True)

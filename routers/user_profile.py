@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Query
+from fastapi import APIRouter, Body, Path
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 
@@ -15,7 +15,7 @@ async def create_user_profile(profile_data : UserProfile = Body()):
     return UserProfileService(db).create_user_profile(profile_data)
 
 @user_route.get("/users/{user_id}")
-async def get_user_profile(user_id: int = Query(...)):
+async def get_user_profile(user_id: int = Path(...)):
     db = Session(engine)
     profile = UserProfileService(db).get_user_profile(user_id)
     if not profile:
@@ -23,12 +23,12 @@ async def get_user_profile(user_id: int = Query(...)):
     return profile
 
 @user_route.put("/users/{user_id}")
-async def update_user_profile(user_id: int = Query(...), profile_data: UserProfile = Body()):
+async def update_user_profile(user_id: int = Path(...), profile_data: UserProfile = Body()):
     db = Session(engine)
     return UserProfileService(db).update_user_profile(user_id, profile_data)
 
 @user_route.delete("/users/{user_id}")
-async def delete_user_profile(user_id: int = Query(...)):
+async def delete_user_profile(user_id: int = Path(...)):
     db = Session(engine)
     UserProfileService(db).delete_user_profile(user_id)
     return JSONResponse(status_code=200, content={'message': 'user profile deleted'})
