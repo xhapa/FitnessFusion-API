@@ -21,7 +21,7 @@ class UserProfileService():
     def update_user_profile(self, user_id: int, profile_data) -> UserProfile:
         profile = self.get_user_profile(user_id)
         if not profile:
-            raise HTTPException(status_code=404, detail="Profile not found")
+            return HTTPException(status_code=404, detail="Profile not found")
         profile_data = profile_data.dict(exclude_unset=True)
         for key, value in profile_data.items():
             setattr(profile, key, value)
